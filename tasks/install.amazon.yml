@@ -28,7 +28,7 @@
 
 - name: Install PyMongo package
   yum:
-    name: python-pymongo
+    name: python{{ '3' if ansible_python.version.major == 3 else '' }}-pymongo
     state: present
     lock_timeout: "{{ yum_lock_timeout }}"
   when: not mongodb_pymongo_from_pip
@@ -36,8 +36,8 @@
 - name: Install PIP
   yum:
     name:
-      - python-devel
-      - python-pip
+      - python{{ '3' if ansible_python.version.major == 3 else '' }}-devel
+      - python{{ '3' if ansible_python.version.major == 3 else '' }}-pip
     lock_timeout: "{{ yum_lock_timeout }}"
   when: mongodb_pymongo_from_pip
 

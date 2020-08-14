@@ -85,20 +85,20 @@
 
 - name: Install PyMongo package
   apt:
-    name: python-pymongo
+    name: python{{ '3' if ansible_python.version.major == 3 else '' }}-pymongo
   when: not mongodb_pymongo_from_pip
 
 - name: Install PIP
   apt:
     pkg:
-      - python-dev
-      - python-pip
+      - python{{ '3' if ansible_python.version.major == 3 else '' }}-dev
+      - python{{ '3' if ansible_python.version.major == 3 else '' }}-pip
   when: mongodb_pymongo_from_pip | bool
 
 - name: Install setuptools (required for ansible 2.7+)
   apt:
     pkg:
-      - python-setuptools
+      - python{{ '3' if ansible_python.version.major == 3 else '' }}-setuptools
   when: mongodb_pymongo_from_pip | bool
 
 - name: Install PyMongo from PIP
